@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irregular Verbs · Неправильные глаголы</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Mulish:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0D0D0D;
+  --ink2: #4A4A4A;
+  --ink3: #9A9A9A;
+  --bg: #F7F4EF;
+  --card: #FFFFFF;
+  --accent: #2D5BE3;
+  --accent-l: #E8EEFB;
+  --green: #1A7A4A;
+  --green-l: #E3F5EC;
+  --red: #C0392B;
+  --red-l: #FDECEA;
+  --amber: #C07A00;
+  --amber-l: #FEF5E0;
+  --border: rgba(13,13,13,0.10);
+  --r: 18px;
+  --rs: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+.shell {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 3rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .75rem;
+  border-bottom: 1.5px solid var(--border);
+  margin-bottom: 2rem;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  color: var(--accent);
+  text-transform: uppercase;
+  background: var(--accent-l);
+  padding: 5px 14px;
+  border-radius: 100px;
+}
+.hero h1 {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub {
+  font-size: 15px;
+  color: var(--ink2);
+  line-height: 1.6;
+  max-width: 480px;
+}
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: .25rem;
+}
+.hpill {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 4px 12px;
+}
+
+/* ── NAV TABS ── */
+.nav-wrap {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #F7F4EF;
+  margin: 0 -1.25rem;
+  padding: .75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.nav-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.ntab {
+  white-space: nowrap;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.ntab:hover { background: var(--card); border-color: var(--ink3); }
+.ntab, .btn, .btn-primary, .qbtn, .fnav-btn, .flash-shuffle, .flash-card, .mitem { touch-action: manipulation; }
+.ntab.on {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+/* ── PANES ── */
+.pane { display: none; animation: fadeUp .3s ease; }
+.pane.show { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── CARD shell ── */
+.card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.card-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 1.25rem;
+}
+
+/* ── TABLE ── */
+.vt { width: 100%; border-collapse: collapse; font-size: 14px; }
+.vt th {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1.5px solid var(--border);
+}
+.vt td { padding: 11px 12px; border-bottom: 1px solid rgba(13,13,13,.06); vertical-align: middle; }
+.vt tr:last-child td { border-bottom: none; }
+.vt tr:hover td { background: var(--bg); }
+.vt .n { font-size: 11px; color: var(--ink3); width: 28px; }
+.vt .f1 { font-weight: 700; font-size: 15px; }
+.vt .f2 { color: var(--accent); font-weight: 600; }
+.vt .f3 { color: var(--green); font-weight: 600; }
+.vt .ru { color: var(--ink2); font-size: 13px; }
+.legend {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 1rem; font-size: 12px; font-weight: 600;
+}
+.legend span { display: flex; align-items: center; gap: 5px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot-acc { background: var(--accent); }
+.dot-grn { background: var(--green); }
+
+/* ── FLASHCARDS ── */
+.flash-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; padding: .5rem 0; }
+.flash-prog-bar { width: 100%; max-width: 520px; height: 4px; background: rgba(13,13,13,.1); border-radius: 2px; overflow: hidden; }
+.flash-prog-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s; }
+.flash-card {
+  width: 100%;
+  max-width: 520px;
+  min-height: 220px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+}
+.flash-card::before { display: none; }
+.flash-card.flipped { border-color: var(--accent); background: var(--accent-l); }
+.flash-card.flipped::before { display: none; }
+.fc-front-wrap { position: relative; z-index: 1; }
+.fc-word {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -.02em;
+  margin-bottom: .4rem;
+}
+.fc-tap { font-size: 12px; color: var(--ink3); font-weight: 600; }
+.fc-back { display: none; }
+.fc-ru {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  letter-spacing: -.01em;
+}
+.fc-forms { display: flex; gap: 2rem; justify-content: center; }
+.fc-form { text-align: center; }
+.fc-form .fl { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+.fc-form .fv { font-size: 16px; font-weight: 700; }
+.fc-form.f2v .fv { color: var(--accent); }
+.fc-form.f3v .fv { color: var(--green); }
+.flash-card.flipped .fc-front-wrap { display: none; }
+.flash-card.flipped .fc-back { display: block; }
+
+.flash-nav { display: flex; align-items: center; gap: 1.5rem; }
+.fnav-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+  font-family: 'Mulish', sans-serif;
+  color: var(--ink);
+}
+.fnav-btn:hover { border-color: var(--accent); color: var(--accent); }
+.flash-ctr {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink2);
+  min-width: 60px;
+  text-align: center;
+}
+.flash-shuffle {
+  font-size: 13px; font-weight: 600; color: var(--ink3);
+  background: none; border: none; cursor: pointer;
+  font-family: 'Mulish', sans-serif;
+  padding: 4px 8px;
+  border-radius: var(--rs);
+  transition: .15s;
+}
+.flash-shuffle:hover { color: var(--ink); background: var(--bg); }
+
+/* ── QUIZ ── */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+.stat { background: var(--bg); border-radius: var(--rs); padding: 1rem; text-align: center; border: 1px solid var(--border); }
+.stat-n { font-family: 'Unbounded', sans-serif; font-size: 1.6rem; font-weight: 900; }
+.stat-l { font-size: 11px; color: var(--ink3); font-weight: 600; margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
+.ok-c { color: var(--green); }
+.err-c { color: var(--red); }
+.quiz-q {
+  font-size: 16px; font-weight: 600; line-height: 1.5;
+  margin-bottom: 1.25rem; color: var(--ink);
+}
+.quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+.qbtn {
+  padding: 12px 14px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; text-align: left;
+  color: var(--ink);
+  transition: all .15s;
+  line-height: 1.3;
+}
+.qbtn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-l); color: var(--accent); }
+.qbtn.correct { background: var(--green-l); border-color: var(--green); color: var(--green); }
+.qbtn.wrong { background: var(--red-l); border-color: var(--red); color: var(--red); }
+.qbtn:disabled { cursor: default; }
+.quiz-fb { font-size: 13px; min-height: 18px; color: var(--ink2); font-weight: 600; }
+.done-box { text-align: center; padding: 2rem 1rem; }
+.done-score {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 4rem; font-weight: 900;
+  color: var(--accent); line-height: 1;
+  margin-bottom: .5rem;
+}
+.done-msg { font-size: 15px; color: var(--ink2); margin-bottom: 1.5rem; }
+
+/* ── INPUT ── */
+.inp-item { margin-bottom: 1.5rem; }
+.inp-item:last-child { margin-bottom: 0; }
+.inp-label-row {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: .6rem;
+}
+.inp-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 10px; font-weight: 700;
+  color: var(--ink3); letter-spacing: .1em;
+}
+.inp-v1 { font-size: 16px; font-weight: 700; }
+.inp-ru { font-size: 13px; color: var(--ink2); }
+.inp-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.inp-group { display: flex; flex-direction: column; flex: 1; min-width: 110px; gap: 4px; }
+.inp-flabel {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink3);
+}
+.inp-field {
+  padding: 10px 14px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--ink);
+  outline: none;
+  transition: border .2s;
+}
+.inp-field:focus { border-color: var(--accent); background: var(--accent-l); }
+.inp-field.ok { border-color: var(--green); background: var(--green-l); color: var(--green); }
+.inp-field.err { border-color: var(--red); background: var(--red-l); color: var(--red); }
+.inp-hint { font-size: 12px; font-weight: 600; min-height: 16px; }
+.inp-hint.show-ok { color: var(--green); }
+.inp-hint.show-err { color: var(--red); }
+.inp-sep { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+/* ── MATCH ── */
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.match-col { display: flex; flex-direction: column; gap: 7px; }
+.mitem {
+  padding: 11px 14px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--border);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; background: var(--bg);
+  transition: all .15s; color: var(--ink);
+  line-height: 1.3;
+}
+.mitem:hover { border-color: var(--accent); background: var(--accent-l); color: var(--accent); }
+.mitem.sel { border-color: var(--amber); background: var(--amber-l); color: var(--amber); }
+.mitem.matched { border-color: var(--green); background: var(--green-l); color: var(--green); pointer-events: none; }
+.mitem.bad { border-color: var(--red); background: var(--red-l); color: var(--red); }
+.match-fb { font-size: 13px; font-weight: 600; color: var(--ink2); margin-top: .75rem; min-height: 18px; }
+
+/* ── BUTTONS ── */
+button { font-family: 'Mulish', sans-serif; cursor: pointer; transition: all .15s; }
+.btn {
+  padding: 10px 22px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--border);
+  background: transparent;
+  font-size: 14px; font-weight: 700;
+  color: var(--ink2);
+}
+.btn:hover { background: var(--bg); border-color: var(--ink3); }
+.btn-primary {
+  padding: 10px 22px;
+  border-radius: var(--rs);
+  border: none;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 14px; font-weight: 700;
+}
+.btn-primary:hover { opacity: .85; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.25rem; align-items: center; }
+.result-text { font-size: 13px; color: var(--ink2); font-weight: 600; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 520px) {
+  .hero h1 { font-size: 1.5rem; }
+  .quiz-opts { grid-template-columns: 1fr; }
+  .match-grid { grid-template-columns: 1fr; }
+  .card { padding: 1.1rem; }
+  .fc-word { font-size: 1.7rem; }
+  .vt th:nth-child(3), .vt td:nth-child(3) { display: none; }
+  .stat-n { font-size: 1.3rem; }
+}
+@media (max-width: 380px) {
+  .hero { padding: 2rem 0 1.75rem; }
+  .ntab { padding: 7px 13px; font-size: 12px; }
+  .vt th:nth-child(4), .vt td:nth-child(4) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-tag">English · Тренажёр</div>
+    <h1>Irregular<br><span>Verbs</span></h1>
+    <p class="hero-sub">15 неправильных глаголов — таблица, карточки, тест, диктант и игра на соответствие.</p>
+    <div class="hero-pills">
+      <span class="hpill">15 глаголов</span>
+      <span class="hpill">5 режимов</span>
+      <span class="hpill">с переводом</span>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <div class="nav-tabs">
+      <button class="ntab on" onclick="sw(0)">📋 Таблица</button>
+      <button class="ntab" onclick="sw(1)">🃏 Карточки</button>
+      <button class="ntab" onclick="sw(2)">⚡ Тест</button>
+      <button class="ntab" onclick="sw(3)">✏️ Диктант</button>
+      <button class="ntab" onclick="sw(4)">🔗 Пары</button>
+    </div>
+  </div>
+
+  <!-- ── PANE 0: TABLE ── -->
+  <div class="pane show" id="p0">
+    <div class="card">
+      <div class="card-title">Все 15 глаголов</div>
+      <div class="legend">
+        <span><span class="dot dot-acc"></span>II форма — Past Simple</span>
+        <span><span class="dot dot-grn"></span>III форма — Past Participle</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="vt">
+          <thead>
+            <tr>
+              <th class="n">#</th>
+              <th>I форма</th>
+              <th>II форма</th>
+              <th>III форма</th>
+              <th>Значение</th>
+            </tr>
+          </thead>
+          <tbody id="vtbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PANE 1: FLASHCARDS ── -->
+  <div class="pane" id="p1">
+    <div class="card">
+      <div class="card-title">Нажми на карточку — узнаешь перевод и формы</div>
+      <div class="flash-wrap">
+        <div class="flash-prog-bar">
+          <div class="flash-prog-fill" id="fprog" style="width:0%"></div>
+        </div>
+        <div class="flash-card" id="fcard" onclick="flipCard()">
+          <div class="fc-front-wrap">
+            <div class="fc-word" id="fword"></div>
+            <div class="fc-tap">нажми, чтобы увидеть</div>
+          </div>
+          <div class="fc-back" id="fback"></div>
+        </div>
+        <div class="flash-nav">
+          <button class="fnav-btn" onclick="fc(-1)">←</button>
+          <span class="flash-ctr" id="fctr">1 / 15</span>
+          <button class="fnav-btn" onclick="fc(1)">→</button>
+        </div>
+        <button class="flash-shuffle" onclick="shuffleCards()">↻ Перемешать</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PANE 2: QUIZ ── -->
+  <div class="pane" id="p2">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-n" id="q-num">0</div><div class="stat-l">вопрос</div></div>
+      <div class="stat"><div class="stat-n ok-c" id="q-ok">0</div><div class="stat-l">верно</div></div>
+      <div class="stat"><div class="stat-n err-c" id="q-err">0</div><div class="stat-l">ошибок</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Тест — выбери правильный ответ</div>
+      <div id="quiz-area"></div>
+    </div>
+  </div>
+
+  <!-- ── PANE 3: INPUT ── -->
+  <div class="pane" id="p3">
+    <div class="card">
+      <div class="card-title">Впиши II и III форму глагола</div>
+      <div id="inp-area"></div>
+      <div class="btn-row">
+        <button class="btn-primary" onclick="checkInp()">Проверить</button>
+        <button class="btn" onclick="buildInp()">Новые глаголы</button>
+        <span class="result-text" id="inp-total"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PANE 4: MATCH ── -->
+  <div class="pane" id="p4">
+    <div class="card">
+      <div class="card-title">Соедини глагол с переводом</div>
+      <div class="match-grid">
+        <div class="match-col" id="mleft"></div>
+        <div class="match-col" id="mright"></div>
+      </div>
+      <div class="match-fb" id="match-fb"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="buildMatch()">↻ Новый раунд</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<script>
+const VERBS = [
+  {v1:'be',     v2:'was / were', v3:'been',    ru:'быть'},
+  {v1:'beat',   v2:'beat',       v3:'beaten',  ru:'бить'},
+  {v1:'become', v2:'became',     v3:'become',  ru:'становиться'},
+  {v1:'begin',  v2:'began',      v3:'begun',   ru:'начинаться'},
+  {v1:'blow',   v2:'blew',       v3:'blown',   ru:'дуть'},
+  {v1:'break',  v2:'broke',      v3:'broken',  ru:'ломать(ся)'},
+  {v1:'bring',  v2:'brought',    v3:'brought', ru:'приносить'},
+  {v1:'build',  v2:'built',      v3:'built',   ru:'строить'},
+  {v1:'burn',   v2:'burnt',      v3:'burnt',   ru:'гореть, жечь'},
+  {v1:'buy',    v2:'bought',     v3:'bought',  ru:'покупать'},
+  {v1:'catch',  v2:'caught',     v3:'caught',  ru:'ловить, хватать'},
+  {v1:'choose', v2:'chose',      v3:'chosen',  ru:'выбирать'},
+  {v1:'come',   v2:'came',       v3:'come',    ru:'приходить'},
+  {v1:'cost',   v2:'cost',       v3:'cost',    ru:'стоить'},
+  {v1:'cut',    v2:'cut',        v3:'cut',     ru:'резать'},
+];
+
+function rnd(a){return [...a].sort(()=>Math.random()-.5)}
+
+/* ── TABLE ── */
+const tb = document.getElementById('vtbody');
+VERBS.forEach((v,i) => {
+  tb.innerHTML += `<tr>
+    <td class="n">${i+1}</td>
+    <td class="f1">${v.v1}</td>
+    <td class="f2">${v.v2}</td>
+    <td class="f3">${v.v3}</td>
+    <td class="ru">${v.ru}</td>
+  </tr>`;
+});
+
+/* ── TABS ── */
+let built = [true,false,false,false,false];
+function sw(n){
+  document.querySelectorAll('.ntab').forEach((t,i)=>t.classList.toggle('on',i===n));
+  document.querySelectorAll('.pane').forEach((p,i)=>p.classList.toggle('show',i===n));
+  if(!built[n]){
+    if(n===1){buildCards();}
+    if(n===2){buildQuiz();}
+    if(n===3){buildInp();}
+    if(n===4){buildMatch();}
+    built[n]=true;
+  }
+}
+
+/* ── FLASHCARDS ── */
+let deck=[...VERBS], fi=0, flipped=false;
+function buildCards(){showCard();}
+function showCard(){
+  flipped=false;
+  const v=deck[fi];
+  const card=document.getElementById('fcard');
+  card.classList.remove('flipped');
+  document.getElementById('fword').textContent=v.v1;
+  document.getElementById('fback').innerHTML=`
+    <div class="fc-ru">${v.ru}</div>
+    <div class="fc-forms">
+      <div class="fc-form f2v"><div class="fl">II форма</div><div class="fv">${v.v2}</div></div>
+      <div class="fc-form f3v"><div class="fl">III форма</div><div class="fv">${v.v3}</div></div>
+    </div>`;
+  document.getElementById('fctr').textContent=`${fi+1} / ${deck.length}`;
+  document.getElementById('fprog').style.width=Math.round((fi+1)/deck.length*100)+'%';
+}
+function flipCard(){
+  flipped=!flipped;
+  document.getElementById('fcard').classList.toggle('flipped',flipped);
+}
+function fc(d){fi=(fi+d+deck.length)%deck.length;showCard();}
+function shuffleCards(){deck=rnd(VERBS);fi=0;showCard();}
+
+/* ── QUIZ ── */
+const QTYPES=['ru2v1','v12ru','v12v2','v22v1','v12v3'];
+let qOk=0,qErr=0,qNum=0;
+function buildQuiz(){nextQ();}
+function nextQ(){
+  if(qNum>=20){showQDone();return;}
+  qNum++;
+  document.getElementById('q-num').textContent=qNum;
+  const v=VERBS[Math.floor(Math.random()*VERBS.length)];
+  const type=QTYPES[Math.floor(Math.random()*QTYPES.length)];
+  let prompt,correct,wFn;
+  if(type==='ru2v1'){prompt=`«${v.ru}» по-английски — это:`;correct=v.v1;wFn=w=>w.v1;}
+  else if(type==='v12ru'){prompt=`Что значит «${v.v1}»?`;correct=v.ru;wFn=w=>w.ru;}
+  else if(type==='v12v2'){prompt=`Past Simple глагола «${v.v1}» — это:`;correct=v.v2;wFn=w=>w.v2;}
+  else if(type==='v22v1'){prompt=`Глагол с Past Simple «${v.v2}» в основной форме:`;correct=v.v1;wFn=w=>w.v1;}
+  else{prompt=`Past Participle глагола «${v.v1}» — это:`;correct=v.v3;wFn=w=>w.v3;}
+  const wrongs=rnd(VERBS.filter(w=>w!==v)).slice(0,3).map(wFn);
+  const opts=rnd([correct,...wrongs]);
+  document.getElementById('quiz-area').innerHTML=`
+    <div class="quiz-q">${qNum}. ${prompt}</div>
+    <div class="quiz-opts">
+      ${opts.map(o=>`<button class="qbtn" onclick="pickQ(this,'${o.replace(/'/g,"\\'")}','${correct.replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-fb" id="qfb"></div>`;
+}
+function pickQ(btn,chosen,correct){
+  const area=document.getElementById('quiz-area');
+  if(area.querySelector('.qbtn:disabled'))return;
+  area.querySelectorAll('.qbtn').forEach(b=>b.disabled=true);
+  const ok=chosen===correct;
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) area.querySelectorAll('.qbtn').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});
+  ok?qOk++:qErr++;
+  document.getElementById('q-ok').textContent=qOk;
+  document.getElementById('q-err').textContent=qErr;
+  document.getElementById('qfb').textContent=ok?'Правильно!':'Неверно — правильный ответ выделен зелёным.';
+  setTimeout(nextQ,1100);
+}
+function showQDone(){
+  const pct=Math.round(qOk/20*100);
+  const msg=pct>=80?'Отлично! Ты знаешь эти глаголы!':pct>=50?'Хороший результат, продолжай!':'Повтори карточки и попробуй снова!';
+  document.getElementById('quiz-area').innerHTML=`
+    <div class="done-box">
+      <div class="done-score">${qOk}/20</div>
+      <div class="done-msg">${msg}</div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn-primary" onclick="restartQ()">Пройти снова</button>
+      </div>
+    </div>`;
+}
+function restartQ(){
+  qOk=0;qErr=0;qNum=0;
+  ['q-ok','q-err','q-num'].forEach(id=>document.getElementById(id).textContent=0);
+  nextQ();
+}
+
+/* ── INPUT ── */
+let inpV=[];
+function buildInp(){
+  inpV=rnd(VERBS).slice(0,6);
+  document.getElementById('inp-total').textContent='';
+  const area=document.getElementById('inp-area');
+  area.innerHTML='';
+  inpV.forEach((v,i)=>{
+    const div=document.createElement('div');
+    div.className='inp-item';
+    div.innerHTML=`
+      <div class="inp-label-row">
+        <span class="inp-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="inp-v1">${v.v1}</span>
+        <span class="inp-ru">— ${v.ru}</span>
+      </div>
+      <div class="inp-row">
+        <div class="inp-group">
+          <div class="inp-flabel">II форма</div>
+          <input class="inp-field" id="i2-${i}" placeholder="Past Simple…" autocomplete="off" autocorrect="off" spellcheck="false">
+          <div class="inp-hint" id="h2-${i}"></div>
+        </div>
+        <div class="inp-group">
+          <div class="inp-flabel">III форма</div>
+          <input class="inp-field" id="i3-${i}" placeholder="Past Participle…" autocomplete="off" autocorrect="off" spellcheck="false">
+          <div class="inp-hint" id="h3-${i}"></div>
+        </div>
+      </div>`;
+    if(i<inpV.length-1){const sep=document.createElement('div');sep.className='inp-sep';div.appendChild(sep);}
+    area.appendChild(div);
+  });
+}
+function checkInp(){
+  let ok=0,total=0;
+  inpV.forEach((v,i)=>{
+    [['v2','i2','h2'],['v3','i3','h3']].forEach(([f,inputId,hintId])=>{
+      total++;
+      const inp=document.getElementById(`${inputId}-${i}`);
+      const hint=document.getElementById(`${hintId}-${i}`);
+      const val=inp.value.trim().toLowerCase();
+      const alts=v[f].toLowerCase().split('/').map(s=>s.trim());
+      const isOk=val&&alts.some(a=>val===a);
+      inp.className='inp-field'+(val?(isOk?' ok':' err'):'');
+      if(isOk){ok++;hint.textContent='';hint.className='inp-hint';}
+      else if(val){hint.textContent='→ '+v[f];hint.className='inp-hint show-err';}
+      else{hint.textContent='';hint.className='inp-hint';}
+    });
+  });
+  document.getElementById('inp-total').textContent=`Результат: ${ok} / ${total}`;
+}
+
+/* ── MATCH ── */
+let mSel=null,mPaired=0;
+function buildMatch(){
+  mSel=null;mPaired=0;
+  document.getElementById('match-fb').textContent='';
+  const pick=rnd(VERBS).slice(0,7);
+  const lc=document.getElementById('mleft');
+  const rc=document.getElementById('mright');
+  lc.innerHTML='';rc.innerHTML='';
+  pick.forEach(v=>{
+    const el=document.createElement('div');
+    el.className='mitem';el.textContent=v.v1;el.dataset.k=v.v1;el.dataset.s='l';
+    el.onclick=()=>clickM(el);lc.appendChild(el);
+  });
+  rnd(pick).forEach(v=>{
+    const el=document.createElement('div');
+    el.className='mitem';el.textContent=v.ru;el.dataset.k=v.v1;el.dataset.s='r';
+    el.onclick=()=>clickM(el);rc.appendChild(el);
+  });
+}
+function clickM(el){
+  if(el.classList.contains('matched'))return;
+  if(mSel&&mSel.dataset.s===el.dataset.s){mSel.classList.remove('sel');mSel=el;el.classList.add('sel');return;}
+  if(!mSel){el.classList.add('sel');mSel=el;return;}
+  const a=mSel,b=el;
+  a.classList.remove('sel');mSel=null;
+  if(a.dataset.k===b.dataset.k){
+    a.classList.add('matched');b.classList.add('matched');mPaired++;
+    const total=document.querySelectorAll('#mleft .mitem').length;
+    if(mPaired===total)document.getElementById('match-fb').textContent='Все пары найдены! Отлично!';
+  } else {
+    a.classList.add('bad');b.classList.add('bad');
+    setTimeout(()=>{a.classList.remove('bad');b.classList.remove('bad');},600);
+  }
+}
+</script>
+</body>
+</html>
